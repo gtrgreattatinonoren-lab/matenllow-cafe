@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抹天狼 MATENRO | Tea &amp; Sweets Cafe</title>
+<meta name="description" content="森の奥にひっそりと佇む紅茶と焼き菓子の店「抹天狼 -MATENRO-」。赤ずきんと狼の物語をモチーフにした、大人のための隠れ家ティーサロンです。">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ローディング演出 -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-emblem">
+    <svg viewBox="0 0 100 100" class="loader-ring">
+      <circle cx="50" cy="50" r="42"></circle>
+    </svg>
+    <span>抹天狼</span>
+  </div>
+</div>
+
+<!-- ヘッダー -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <img src="assets/logo.png" alt="" class="brand-mark-photo"
+             onload="this.nextElementSibling.style.display='none';"
+             onerror="this.remove();">
+        <svg viewBox="0 0 60 60" width="34" height="34" class="brand-mark-svg">
+          <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M30 6 L33 14 L30 22 L27 14 Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-jp">抹天狼</span>
+        <span class="brand-en">MATENRO</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="#story">物語</a></li>
+        <li><a href="#menu">メニュー</a></li>
+        <li><a href="#gallery">店内・世界観</a></li>
+        <li><a href="#voice">お客様の声</a></li>
+        <li><a href="#access">アクセス</a></li>
+      </ul>
+      <a href="#access" class="nav-cta">ご予約</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-moon"></div>
+    <div class="hero-trees"></div>
+    <div class="hero-vignette"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="emblem">
+      <img src="assets/logo.png" alt="抹天狼 MATENRO Tea and Sweets Cafe ロゴ" class="emblem-photo"
+           onerror="this.style.display='none'; this.closest('.emblem').classList.add('emblem--fallback');">
+      <svg viewBox="0 0 400 400" class="emblem-svg" role="img" aria-label="抹天狼 MATENRO Tea and Sweets Cafe エンブレム">
+        <defs>
+          <path id="ringTop" d="M 70 200 A 130 130 0 0 1 330 200" />
+          <path id="ringBottom" d="M 90 200 A 110 110 0 0 0 310 200" />
+          <radialGradient id="moonGlow" cx="50%" cy="38%" r="55%">
+            <stop offset="0%" stop-color="#f3e9cf" stop-opacity="0.95"/>
+            <stop offset="55%" stop-color="#e4d3a4" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#e4d3a4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- outer ornate frame -->
+        <circle cx="200" cy="200" r="188" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="200" cy="200" r="178" fill="none" stroke="currentColor" stroke-width="1"/>
+        <g class="emblem-diamonds">
+          <path d="M200 4 L207 12 L200 22 L193 12 Z"/>
+          <path d="M200 396 L207 388 L200 378 L193 388 Z"/>
+          <path d="M4 200 L12 193 L22 200 L12 207 Z"/>
+          <path d="M396 200 L388 193 L378 200 L388 207 Z"/>
+        </g>
+
+        <!-- ring text -->
+        <text class="ring-text-top">
+          <textPath href="#ringTop" startOffset="50%" text-anchor="middle">TEA &amp; SWEETS CAFE</textPath>
+        </text>
+
+        <!-- inner scene -->
+        <circle cx="200" cy="170" r="118" fill="url(#moonGlow)"/>
+        <circle cx="200" cy="150" r="66" class="moon"/>
+
+        <!-- forest silhouette -->
+        <g class="forest">
+          <path d="M40 300 L75 210 L100 260 L120 200 L150 300 Z"/>
+          <path d="M270 300 L300 190 L330 250 L355 210 L378 300 Z"/>
+          <path d="M120 310 L160 150 L200 250 L225 175 L260 310 Z"/>
+        </g>
+
+        <!-- wolf silhouette (behind hood figure) -->
+        <g class="wolf">
+          <path d="M200 82
+                   L168 60 L176 104
+                   L150 132 L150 150
+                   Q150 182 172 200
+                   L200 212 L228 200
+                   Q250 182 250 150
+                   L250 132 L224 104
+                   L232 60 Z"/>
+          <path class="wolf-eye" d="M182 140 l12 4 -12 8 z"/>
+          <path class="wolf-eye" d="M218 140 l-12 4 12 8 z"/>
+          <path class="wolf-snout" d="M188 178 Q200 192 212 178 L206 196 L194 196 Z"/>
+        </g>
+
+        <!-- roses left -->
+        <g class="roses">
+          <path d="M55 260 C50 320 60 360 80 390" class="stem"/>
+          <circle cx="58" cy="255" r="12"/>
+          <circle cx="48" cy="272" r="9"/>
+          <circle cx="70" cy="280" r="8"/>
+          <path d="M40 300 c-10 -4 -14 6 -6 12" class="leaf"/>
+          <path d="M78 330 c10 -4 14 6 6 12" class="leaf"/>
+        </g>
+
+        <!-- teapot + tiered stand, right -->
+        <g class="tea-set">
+          <path d="M320 300 h34 v6 h-34 z"/>
+          <path d="M300 330 h70 v5 h-70 z"/>
+          <path d="M282 360 h100 v5 h-100 z"/>
+          <path d="M330 260 c-16 0 -26 12 -26 26 c0 14 12 24 27 24 c15 0 27 -10 27 -24 c0 -14 -10 -26 -28 -26 z"/>
+          <path d="M356 275 c10 -4 18 2 16 12" class="spout"/>
+          <path d="M304 280 c-10 2 -12 14 -2 18" class="handle"/>
+        </g>
+
+        <!-- red hood figure (front, center-bottom) -->
+        <g class="hood-figure">
+          <path d="M200 175
+                   C165 175, 140 210, 138 250
+                   C136 285, 150 320, 175 340
+                   L225 340
+                   C250 320, 264 285, 262 250
+                   C260 210, 235 175, 200 175 Z"/>
+          <path d="M200 178 C185 178, 172 195, 168 215 C185 205, 215 205, 232 215 C228 195, 215 178, 200 178 Z" class="hood-inner"/>
+          <circle cx="200" cy="235" r="4" class="hood-face"/>
+        </g>
+
+        <!-- bottom banner -->
+        <text class="ring-text-bottom">
+          <textPath href="#ringBottom" startOffset="50%" text-anchor="middle">MATENRO ・ Tea &amp; Sweets Cafe</textPath>
+        </text>
+      </svg>
+    </div>
+
+    <p class="hero-eyebrow">TEA &amp; SWEETS CAFE</p>
+    <h1 class="hero-title">
+      <span class="jp">抹天狼</span>
+      <span class="en">— MATENRO —</span>
+    </h1>
+    <p class="hero-copy">月夜の森にひっそりと灯る、紅茶と焼き菓子の隠れ家。<br class="pc-only">赤ずきんと狼の物語が、湯気とともに静かに満ちる場所。</p>
+
+    <div class="hero-actions">
+      <a href="#menu" class="btn btn-primary">メニューを見る</a>
+      <a href="#access" class="btn btn-ghost">アクセス・ご予約</a>
+    </div>
+  </div>
+
+  <a href="#story" class="scroll-cue" aria-label="下へスクロール">
+    <span></span>
+  </a>
+</section>
+
+<!-- 物語 / コンセプト -->
+<section class="story" id="story">
+  <div class="section-inner">
+    <p class="section-eyebrow">OUR STORY</p>
+    <h2 class="section-title">森の奥で、狼と紅茶を。</h2>
+
+    <div class="story-grid">
+      <div class="story-text">
+        <p>
+          昔、深い森を抜けた先に、おばあさまの家を目指す赤ずきんがいました。<br>
+          時は流れ、彼女は森の奥にもう一軒の家を持ちました。<br>
+          そこには、もう彼女を襲うことのない、静かな狼が寄り添っています。
+        </p>
+        <p>
+          「抹天狼 -MATENRO-」は、そんな物語の続きをイメージしたティー&amp;スイーツカフェ。<br>
+          深煎りのお茶の香りと、焼きたての菓子の温もりで、<br>
+          忙しない日常から少しだけ迷い込んでいただける場所でありたいと考えています。
+        </p>
+        <ul class="story-points">
+          <li><span>01</span>厳選した茶葉を使用したオリジナルブレンドティー</li>
+          <li><span>02</span>毎朝仕込む焼き菓子とケーキ</li>
+          <li><span>03</span>森と月夜をイメージした、静謐な店内空間</li>
+        </ul>
+      </div>
+
+      <div class="story-visual" aria-hidden="true">
+        <div class="story-frame">
+          <svg viewBox="0 0 300 380" class="story-illust">
+            <path class="silo-tree" d="M40 380 L60 260 L75 320 L90 240 L110 380 Z"/>
+            <path class="silo-tree" d="M200 380 L225 230 L245 300 L265 250 L285 380 Z"/>
+            <circle cx="150" cy="90" r="55" class="silo-moon"/>
+            <g transform="translate(0,55) scale(0.75)">
+              <path class="silo-wolf" d="M200 82
+                       L168 60 L176 104
+                       L150 132 L150 150
+                       Q150 182 172 200
+                       L200 212 L228 200
+                       Q250 182 250 150
+                       L250 132 L224 104
+                       L232 60 Z"/>
+              <path class="silo-wolf-eye" d="M182 140 l12 4 -12 8 z"/>
+              <path class="silo-wolf-eye" d="M218 140 l-12 4 12 8 z"/>
+              <path class="silo-hood" d="M200 175
+                       C165 175, 140 210, 138 250
+                       C136 285, 150 320, 175 340
+                       L225 340
+                       C250 320, 264 285, 262 250
+                       C260 210, 235 175, 200 175 Z"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- メニュー -->
+<section class="menu" id="menu">
+  <div class="section-inner">
+    <p class="section-eyebrow">MENU</p>
+    <h2 class="section-title">お茶と焼き菓子</h2>
+    <p class="section-lead">季節の茶葉と厳選した素材で仕立てる、こだわりのメニューです。</p>
+
+    <div class="menu-tabs" role="tablist" aria-label="メニューカテゴリ">
+      <button class="tab-btn is-active" data-tab="tea" role="tab" aria-selected="true">紅茶 &amp; お茶</button>
+      <button class="tab-btn" data-tab="sweets" role="tab" aria-selected="false">焼き菓子 &amp; ケーキ</button>
+      <button class="tab-btn" data-tab="set" role="tab" aria-selected="false">セット &amp; アフタヌーンティー</button>
+    </div>
+
+    <div class="menu-panel is-active" data-panel="tea" role="tabpanel">
+      <div class="menu-grid">
+        <div class="menu-card">
+          <h3>紅頭巾ブレンド</h3>
+          <p class="menu-desc">ベリーの香りをまとわせた、店の看板ブレンドティー。</p>
+          <p class="menu-price">¥880</p>
+        </div>
+        <div class="menu-card">
+          <h3>月夜のアールグレイ</h3>
+          <p class="menu-desc">ベルガモットが香る、静かな夜長にぴったりの一杯。</p>
+          <p class="menu-price">¥780</p>
+        </div>
+        <div class="menu-card">
+          <h3>森番のダージリン</h3>
+          <p class="menu-desc">渋みと香りのバランスが良い、ファーストフラッシュ茶葉。</p>
+          <p class="menu-price">¥850</p>
+        </div>
+        <div class="menu-card">
+          <h3>狼のスパイスチャイ</h3>
+          <p class="menu-desc">シナモンと生姜が香る、体の芯から温まる一杯。</p>
+          <p class="menu-price">¥820</p>
+        </div>
+        <div class="menu-card">
+          <h3>薔薇と柑橘のハーブティー</h3>
+          <p class="menu-desc">ノンカフェイン。華やかな香りが広がるブレンド。</p>
+          <p class="menu-price">¥800</p>
+        </div>
+        <div class="menu-card">
+          <h3>深煎り抹茶</h3>
+          <p class="menu-desc">店名にちなんだ、コクのある一杯。ミルク割りも人気。</p>
+          <p class="menu-price">¥750</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="sweets" role="tabpanel" hidden>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <h3>森のベリータルト</h3>
+          <p class="menu-desc">季節のベリーをたっぷりのせた、酸味と甘みのタルト。</p>
+          <p class="menu-price">¥680</p>
+        </div>
+        <div class="menu-card">
+          <h3>満月のバスクチーズケーキ</h3>
+          <p class="menu-desc">濃厚でありながら軽やかな口どけの人気ケーキ。</p>
+          <p class="menu-price">¥650</p>
+        </div>
+        <div class="menu-card">
+          <h3>狼の爪あとスコーン</h3>
+          <p class="menu-desc">外はさっくり、中はしっとり。自家製ジャム添え。</p>
+          <p class="menu-price">¥480</p>
+        </div>
+        <div class="menu-card">
+          <h3>赤ずきんのバスケットクッキー</h3>
+          <p class="menu-desc">小さな籠に詰めた、食べ比べできる焼き菓子セット。</p>
+          <p class="menu-price">¥720</p>
+        </div>
+        <div class="menu-card">
+          <h3>抹天狼モンブラン</h3>
+          <p class="menu-desc">栗と抹茶を合わせた、店名を冠した看板スイーツ。</p>
+          <p class="menu-price">¥780</p>
+        </div>
+        <div class="menu-card">
+          <h3>薔薇のガトーショコラ</h3>
+          <p class="menu-desc">ローズの香りを効かせた、大人向けの濃厚チョコレートケーキ。</p>
+          <p class="menu-price">¥700</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="set" role="tabpanel" hidden>
+      <div class="menu-grid">
+        <div class="menu-card menu-card--wide">
+          <h3>Matenro アフタヌーンティーセット</h3>
+          <p class="menu-desc">3段スタンドで楽しむ、焼き菓子・軽食・スイーツの盛り合わせ。お好きな紅茶付き。(2名様より・要予約)</p>
+          <p class="menu-price">¥3,800 / 1名</p>
+        </div>
+        <div class="menu-card">
+          <h3>本日のケーキセット</h3>
+          <p class="menu-desc">日替わりケーキとお好きな紅茶のセット。</p>
+          <p class="menu-price">¥1,280</p>
+        </div>
+        <div class="menu-card">
+          <h3>スコーンセット</h3>
+          <p class="menu-desc">焼きたてスコーンとお好きな紅茶のセット。</p>
+          <p class="menu-price">¥1,080</p>
+        </div>
+        <div class="menu-card">
+          <h3>森の朝食プレート</h3>
+          <p class="menu-desc">軽食とサラダ、ドリンクが付くモーニング限定メニュー。</p>
+          <p class="menu-price">¥1,450</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note">※ 表示価格はすべて税込です。仕入れ状況により内容が変更となる場合がございます。</p>
+  </div>
+</section>
+
+<!-- 店内・世界観 (ギャラリー) -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <p class="section-eyebrow">ATMOSPHERE</p>
+    <h2 class="section-title">店内・世界観</h2>
+    <p class="section-lead">アンティークランプと深い色合いの調度品に囲まれた、物語の中のような空間。</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-card gallery-card--tall">
+        <svg viewBox="0 0 300 420" aria-hidden="true">
+          <rect width="300" height="420" class="g-bg"/>
+          <circle cx="150" cy="120" r="70" class="g-moon"/>
+          <path d="M0 420 L40 300 L70 380 L110 260 L150 420 Z" class="g-tree"/>
+          <path d="M150 420 L190 260 L230 380 L260 300 L300 420 Z" class="g-tree"/>
+        </svg>
+        <div class="gallery-caption">窓辺のカウンター席</div>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 300 260" aria-hidden="true">
+          <rect width="300" height="260" class="g-bg g-bg--alt"/>
+          <circle cx="150" cy="130" r="60" class="g-cup-outer"/>
+          <circle cx="150" cy="130" r="46" class="g-cup-inner"/>
+          <path d="M196 120 q26 -6 24 16 q-2 20 -24 14" class="g-handle"/>
+        </svg>
+        <div class="gallery-caption">オリジナルブレンドティー</div>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 300 260" aria-hidden="true">
+          <rect width="300" height="260" class="g-bg"/>
+          <path class="g-rose-big" d="M150 90 c-24 0 -40 18 -40 38 c0 22 18 40 40 40 c22 0 40 -18 40 -40 c0 -20 -16 -38 -40 -38 Z"/>
+          <path d="M150 170 C140 210 150 235 150 235" class="g-stem"/>
+        </svg>
+        <div class="gallery-caption">薔薇を飾ったテーブル</div>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 300 260" aria-hidden="true">
+          <rect width="300" height="260" class="g-bg g-bg--alt"/>
+          <path d="M150 60 C110 60 85 100 82 145 C80 185 96 220 122 240 L178 240 C204 220 220 185 218 145 C215 100 190 60 150 60 Z" class="g-hood"/>
+        </svg>
+        <div class="gallery-caption">赤ずきんをあしらった一角</div>
+      </div>
+      <div class="gallery-card">
+        <svg viewBox="0 0 300 260" aria-hidden="true">
+          <rect width="300" height="260" class="g-bg g-bg--alt"/>
+          <circle cx="150" cy="120" r="72" class="g-moon" opacity="0.35"/>
+          <g transform="translate(24,10) scale(0.9)">
+            <path class="g-wolf" d="M150 60
+                     L118 38 L126 82
+                     L100 110 L100 128
+                     Q100 160 122 178
+                     L150 190 L178 178
+                     Q200 160 200 128
+                     L200 110 L174 82
+                     L182 38 Z"/>
+            <path class="g-wolf-eye" d="M132 118 l12 4 -12 8 z"/>
+            <path class="g-wolf-eye" d="M168 118 l-12 4 12 8 z"/>
+          </g>
+        </svg>
+        <div class="gallery-caption">狼のオブジェ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- お客様の声 -->
+<section class="voice" id="voice">
+  <div class="section-inner">
+    <p class="section-eyebrow">VOICE</p>
+    <h2 class="section-title">お客様の声</h2>
+
+    <div class="voice-grid">
+      <blockquote class="voice-card">
+        <p>「店内に入った瞬間、物語の中に迷い込んだようでした。紅茶の香りとロゴの世界観がぴったりで感動しました。」</p>
+        <cite>30代 女性</cite>
+      </blockquote>
+      <blockquote class="voice-card">
+        <p>「アフタヌーンティーセットのボリュームと質に大満足。誕生日のお祝いで利用しましたが特別な時間になりました。」</p>
+        <cite>20代 女性</cite>
+      </blockquote>
+      <blockquote class="voice-card">
+        <p>「一人でもゆっくり本を読みながら過ごせる落ち着いた雰囲気。深煎り抹茶が特にお気に入りです。」</p>
+        <cite>40代 男性</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section class="access" id="access">
+  <div class="section-inner">
+    <p class="section-eyebrow">ACCESS &amp; INFO</p>
+    <h2 class="section-title">アクセス・ご予約</h2>
+
+    <div class="access-grid">
+      <div class="access-info">
+        <dl>
+          <div class="access-row">
+            <dt>店名</dt>
+            <dd>抹天狼 -MATENRO- Tea &amp; Sweets Cafe</dd>
+          </div>
+          <div class="access-row">
+            <dt>住所</dt>
+            <dd>〒000-0000 ○○県○○市○○町0-0-0<br><span class="note">(実際の住所に差し替えてください)</span></dd>
+          </div>
+          <div class="access-row">
+            <dt>営業時間</dt>
+            <dd>11:00 - 19:00 (L.O. 18:30)</dd>
+          </div>
+          <div class="access-row">
+            <dt>定休日</dt>
+            <dd>水曜日・第3木曜日</dd>
+          </div>
+          <div class="access-row">
+            <dt>電話</dt>
+            <dd>000-0000-0000</dd>
+          </div>
+          <div class="access-row">
+            <dt>予約</dt>
+            <dd>お電話・お問い合わせフォームより承ります</dd>
+          </div>
+        </dl>
+
+        <div class="access-actions">
+          <a href="tel:0000000000" class="btn btn-primary">電話で予約する</a>
+          <a href="#" class="btn btn-ghost">オンライン予約フォーム</a>
+        </div>
+      </div>
+
+      <div class="access-map" aria-hidden="true">
+        <svg viewBox="0 0 400 320" class="map-illust">
+          <rect width="400" height="320" class="map-bg"/>
+          <path d="M0 320 L60 180 L100 260 L140 150 L190 320 Z" class="map-tree"/>
+          <path d="M210 320 L260 140 L300 240 L340 170 L400 320 Z" class="map-tree"/>
+          <circle cx="200" cy="90" r="46" class="map-moon"/>
+          <circle cx="200" cy="230" r="8" class="map-pin-dot"/>
+          <path d="M200 230 m0 -26 a26 26 0 1 1 -0.1 0 Z" class="map-pin" />
+        </svg>
+        <p class="map-note">地図を埋め込む場合は、Googleマップの「共有 &gt; 地図を埋め込む」コードをこの枠内に貼り付けてください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="brand-jp">抹天狼</span>
+      <span class="brand-en">MATENRO Tea &amp; Sweets Cafe</span>
+    </div>
+
+    <nav class="footer-nav">
+      <a href="#story">物語</a>
+      <a href="#menu">メニュー</a>
+      <a href="#gallery">店内・世界観</a>
+      <a href="#access">アクセス</a>
+    </nav>
+
+    <div class="footer-sns">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="X">X</a>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; <span id="year"></span> 抹天狼 -MATENRO- Tea &amp; Sweets Cafe</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
