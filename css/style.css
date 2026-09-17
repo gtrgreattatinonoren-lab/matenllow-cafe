@@ -572,6 +572,19 @@ section{
   margin: 0;
 }
 .menu-card--wide{ grid-column: span 2; }
+.menu-card--photo{
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.menu-card-photo{
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+.menu-card-body{ padding: 26px 28px; }
 
 .menu-note{
   text-align: center;
