@@ -243,36 +243,25 @@ ul{ list-style: none; margin: 0; padding: 0; }
   position: absolute;
   inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(ellipse at 50% 20%, rgba(90,28,40,0.35), transparent 60%),
-    linear-gradient(180deg, #0f0b08 0%, #1a130d 55%, #241a12 100%);
+  background-color: #120d0a;
+  background-image:
+    radial-gradient(ellipse at 50% 22%, rgba(20,14,10,0.1), rgba(15,11,8,0.6) 72%),
+    linear-gradient(180deg, rgba(15,11,8,0.3) 0%, rgba(15,11,8,0.35) 45%, rgba(15,11,8,0.85) 100%),
+    url("../assets/hero-bg.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
 }
-.hero-moon{
-  position: absolute;
-  top: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #f4ead0 0%, #e6d2a1 45%, rgba(230,210,161,0) 72%);
-  opacity: 0.5;
-  filter: blur(1px);
-}
+/* 背景写真(assets/hero-bg.jpg)に月と森がすでに描かれているため、
+   CSSだけで作っていた月・森のレイヤーは非表示にする */
+.hero-moon,
 .hero-trees{
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 42%;
-  background:
-    linear-gradient(180deg, transparent, rgba(10,7,5,0.9) 90%),
-    repeating-linear-gradient(100deg, rgba(0,0,0,0.0) 0 40px, rgba(0,0,0,0.35) 40px 70px);
-  clip-path: polygon(0% 100%, 0% 55%, 4% 70%, 9% 40%, 14% 65%, 20% 30%, 26% 62%, 33% 45%, 40% 68%, 47% 38%, 54% 60%, 61% 42%, 68% 66%, 75% 35%, 82% 58%, 89% 40%, 96% 64%, 100% 45%, 100% 100%);
-  background-color: #0c0906;
+  display: none;
 }
 .hero-vignette{
   position: absolute;
   inset: 0;
-  box-shadow: inset 0 0 180px 60px rgba(0,0,0,0.65);
+  box-shadow: inset 0 0 220px 80px rgba(0,0,0,0.7);
 }
 
 .hero-content{
