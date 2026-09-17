@@ -7,6 +7,8 @@
   const SHEETS = {
     // 店舗情報シート: key,value 形式
     storeInfo: '1PNuc2e-PoYrmZ3a3JEbBDPVqXBBGOOY7Ibj0-UIiCHQ',
+    // サイト文言シート: key,value 形式(見出し・本文・お客様の声など)
+    siteText: '1XKFs5faHGa-t2X3AhGIUbDHfvvT-FqiwDziS42yDO2Q',
     // メニューシート: category,name,price,unit,note 形式
     menu: '11cEjHiagWheVKINwyapnzW0RxTal7Pv-LyiU5ozSPZ8',
   };
@@ -74,7 +76,15 @@
     return rowsToObjects(parseCSV(text));
   }
 
-  function applyStoreInfo(rows) {
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // key,value 形式のシート(店舗情報・サイト文言 共通)を data-field 要素へ適用する
+  function applyKeyValue(rows) {
     if (!rows.length) return;
     const map = {};
     rows.forEach((r) => { if (r.key) map[r.key] = r.value || ''; });
@@ -100,7 +110,8 @@
           }
         }
       } else if (val) {
-        el.textContent = val;
+        // セル内で改行(Shift+Enter)している場合はそのまま<br>として反映する
+        el.innerHTML = escapeHtml(val).replace(/\n/g, '<br>');
       }
     });
 
@@ -231,8 +242,11 @@
 
   async function init() {
     const tasks = [
-      fetchCSV(SHEETS.storeInfo).then(applyStoreInfo).catch((err) => {
+      fetchCSV(SHEETS.storeInfo).then(applyKeyValue).catch((err) => {
         console.warn('店舗情報シートを読み込めませんでした(既定の表示を維持します):', err.message);
+      }),
+      fetchCSV(SHEETS.siteText).then(applyKeyValue).catch((err) => {
+        console.warn('サイト文言シートを読み込めませんでした(既定の表示を維持します):', err.message);
       }),
       fetchCSV(SHEETS.menu).then(applyMenu).catch((err) => {
         console.warn('メニューシートを読み込めませんでした(既定の表示を維持します):', err.message);
