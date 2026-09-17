@@ -417,32 +417,32 @@
         <dl>
           <div class="access-row">
             <dt>店名</dt>
-            <dd>抹天狼 -MATENRO- Tea &amp; Sweets Cafe</dd>
+            <dd data-field="店名">抹天狼 -MATENRO- Tea &amp; Sweets Cafe</dd>
           </div>
           <div class="access-row">
             <dt>住所</dt>
-            <dd>〒000-0000 ○○県○○市○○町0-0-0<br><span class="note">(実際の住所に差し替えてください)</span></dd>
+            <dd><span data-field="郵便番号" data-format="postal">〒000-0000 </span><span data-field="住所">○○県○○市○○町0-0-0</span><br><span class="note" data-field="address-note">(実際の住所に差し替えてください)</span></dd>
           </div>
           <div class="access-row">
             <dt>営業時間</dt>
-            <dd>11:00 - 19:00 (L.O. 18:30)</dd>
+            <dd data-field="営業時間">11:00 - 19:00 (L.O. 18:30)</dd>
           </div>
           <div class="access-row">
             <dt>定休日</dt>
-            <dd>水曜日・第3木曜日</dd>
+            <dd data-field="定休日">水曜日・第3木曜日</dd>
           </div>
           <div class="access-row">
             <dt>電話</dt>
-            <dd>000-0000-0000</dd>
+            <dd data-field="電話番号">000-0000-0000</dd>
           </div>
           <div class="access-row">
             <dt>予約</dt>
-            <dd>お電話・お問い合わせフォームより承ります</dd>
+            <dd data-field="予約案内">お電話・お問い合わせフォームより承ります</dd>
           </div>
         </dl>
 
         <div class="access-actions">
-          <a href="tel:0000000000" class="btn btn-primary">電話で予約する</a>
+          <a href="tel:0000000000" class="btn btn-primary" data-field="電話番号" data-format="tel-href">電話で予約する</a>
           <a href="#" class="btn btn-ghost">オンライン予約フォーム</a>
         </div>
       </div>
@@ -478,13 +478,14 @@
     </nav>
 
     <div class="footer-sns">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="X">X</a>
+      <a href="#" aria-label="Instagram" data-field="Instagram_URL" data-format="href">Instagram</a>
+      <a href="#" aria-label="X" data-field="X_URL" data-format="href">X</a>
     </div>
   </div>
   <p class="footer-copy">&copy; <span id="year"></span> 抹天狼 -MATENRO- Tea &amp; Sweets Cafe</p>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/sheet-data.js"></script>
 </body>
 </html>
