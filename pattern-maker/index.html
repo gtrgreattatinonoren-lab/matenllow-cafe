@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>型紙メーカー | 簡易原型作成ツール</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>型紙メーカー <span>簡易原型作成ツール</span></h1>
+    <p class="lead">
+      採寸値を入力すると、身頃・袖・スカートの「基本ブロック(原型)」をその場で作図します。
+      ブラウザだけで動くツールで、サーバーへの送信やインストールは不要です。
+    </p>
+  </header>
+
+  <div class="disclaimer">
+    <strong>ご利用にあたって(必ずお読みください):</strong>
+    ここで作図される型紙は、一般的な採寸比率に基づく<strong>簡易的な近似式</strong>による「たたき台」です。
+    体型には個人差が大きいため、実際に安価な布(シーチンなど)で仮縫いし、
+    フィット感を確認・補正してからご使用ください。特定の書籍・ブランドの製図法を
+    再現したものではありません。
+  </div>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>1. 採寸値(cm)</h2>
+        <div class="field-grid">
+          <label>身長 <input type="number" id="m-height" value="158" step="0.5" /></label>
+          <label>バスト <input type="number" id="m-bust" value="84" step="0.5" /></label>
+          <label>ウエスト <input type="number" id="m-waist" value="66" step="0.5" /></label>
+          <label>ヒップ <input type="number" id="m-hip" value="92" step="0.5" /></label>
+
+          <label>背丈(首~ウエスト)
+            <span class="with-auto">
+              <input type="number" id="m-backWaistLength" value="38" step="0.5" />
+              <button type="button" class="auto-btn" data-auto="backWaistLength">自動</button>
+            </span>
+          </label>
+          <label>肩幅
+            <span class="with-auto">
+              <input type="number" id="m-shoulder" value="38" step="0.5" />
+              <button type="button" class="auto-btn" data-auto="shoulder">自動</button>
+            </span>
+          </label>
+          <label>首周り
+            <span class="with-auto">
+              <input type="number" id="m-neck" value="36" step="0.5" />
+              <button type="button" class="auto-btn" data-auto="neck">自動</button>
+            </span>
+          </label>
+          <label>ヒップ丈(ウエスト~ヒップ) <input type="number" id="m-hipDepth" value="18" step="0.5" /></label>
+
+          <label>袖丈
+            <span class="with-auto">
+              <input type="number" id="m-sleeveLength" value="53" step="0.5" />
+              <button type="button" class="auto-btn" data-auto="sleeveLength">自動</button>
+            </span>
+          </label>
+          <label>二の腕周り
+            <span class="with-auto">
+              <input type="number" id="m-upperArm" value="28" step="0.5" />
+              <button type="button" class="auto-btn" data-auto="upperArm">自動</button>
+            </span>
+          </label>
+          <label>手首周り <input type="number" id="m-wrist" value="16" step="0.5" /></label>
+          <label>スカート丈 <input type="number" id="m-skirtLength" value="58" step="0.5" /></label>
+        </div>
+        <p class="hint">「自動」ボタンで身長・バストから目安値を再計算できます。実測値があれば直接入力してください。</p>
+      </section>
+
+      <section class="panel">
+        <h2>2. ゆとり量(イージー・cm)</h2>
+        <div class="ease-presets">
+          <button type="button" class="preset-btn" data-preset="fit">フィット</button>
+          <button type="button" class="preset-btn active" data-preset="regular">レギュラー</button>
+          <button type="button" class="preset-btn" data-preset="loose">ゆったり</button>
+        </div>
+        <div class="field-grid">
+          <label>バスト <input type="number" id="e-bustEase" value="6" step="0.5" /></label>
+          <label>ウエスト(身頃) <input type="number" id="e-waistEase" value="2" step="0.5" /></label>
+          <label>袖(二の腕) <input type="number" id="e-sleeveEase" value="5" step="0.5" /></label>
+          <label>袖口 <input type="number" id="e-wristEase" value="3" step="0.5" /></label>
+          <label>ウエスト(スカート) <input type="number" id="e-skirtWaistEase" value="1" step="0.5" /></label>
+          <label>ヒップ(スカート) <input type="number" id="e-skirtHipEase" value="4" step="0.5" /></label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>3. 表示・印刷設定</h2>
+        <label class="checkbox-line"><input type="checkbox" id="opt-showSA" checked /> 縫い代線を表示する</label>
+        <label>縫い代幅(cm) <input type="number" id="opt-saCm" value="1.0" step="0.1" min="0" /></label>
+        <label class="checkbox-line"><input type="checkbox" id="opt-showGrid" checked /> 方眼(グリッド)を表示する</label>
+      </section>
+    </aside>
+
+    <section class="main-area">
+      <nav class="garment-tabs">
+        <button type="button" class="tab-btn active" data-garment="bodice">身頃原型</button>
+        <button type="button" class="tab-btn" data-garment="sleeve">袖原型</button>
+        <button type="button" class="tab-btn" data-garment="skirt">スカート原型</button>
+      </nav>
+
+      <div class="skirt-style-row" id="skirt-style-row" hidden>
+        <span>スカートの形:</span>
+        <label><input type="radio" name="skirtStyle" value="straight" checked /> ストレート</label>
+        <label><input type="radio" name="skirtStyle" value="aline" /> Aライン</label>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" id="btn-print">印刷する(実寸・A4分割)</button>
+        <button type="button" id="btn-export-svg">SVGをダウンロード</button>
+        <button type="button" id="btn-export-json">採寸値を保存(JSON)</button>
+        <label class="import-json-btn">
+          採寸値を読み込む
+          <input type="file" id="input-import-json" accept="application/json" hidden />
+        </label>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="preview" id="preview"></div>
+      </div>
+
+      <p class="hint">
+        縫い代線(赤い破線)は輪郭の縫い目線から外側にオフセットした概算表示です。カーブの強い部分では
+        多少歪む場合があるため、実際の裁断前に確認してください。印刷時は「拡大縮小: なし(100%)」に設定し、
+        1ページ目の「100mm定規」を実際に測って印刷倍率を確認してください。
+      </p>
+    </section>
+  </main>
+
+  <div id="print-area" class="print-area"></div>
+
+  <footer class="app-footer">
+    <a href="../index.html">← 抹天狼カフェ トップページへ戻る</a>
+  </footer>
+
+  <script src="js/geometry.js"></script>
+  <script src="js/drafts.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/print.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
