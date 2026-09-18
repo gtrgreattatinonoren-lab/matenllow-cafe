@@ -334,5 +334,123 @@ const Drafts = (() => {
     return { front, back };
   }
 
-  return { estimateDefaults, buildBodice, buildSleeve, buildSkirt, cm };
+  // ---------------- ワンピース原型(ウエスト切り替えなし) ----------------
+  // 身頃と同じ首・肩・アームホールから、ウエストで切り替えず裾まで一続きに
+  // 製図する。バスト~ヒップの寸法差は、脇線のゆるやかなカーブと、
+  // ウエスト位置を中心に上下へ紡錘形(えんぴつの先のような形)にとがる
+  // 1本の内部ダーツ(生地の中で完結し、端まで切り込まないダーツ)で吸収する。
+  function buildDress(mRaw, style) {
+    const m = estimateDefaults(mRaw);
+    const bustEase = m.bustEase ?? 6;
+    const hipEase = m.skirtHipEase ?? 4;
+
+    const backNeckW = cm(m.neck / 6 + 0.4);
+    const backNeckD = backNeckW / 3;
+    const frontNeckW = cm(m.neck / 6 + 0.2);
+    const frontNeckD = frontNeckW + cm(1.0);
+
+    const shoulderHalf = cm(m.shoulder / 2);
+    const shoulderDrop = cm(4.0);
+    const backShoulderTip = Geo.pt(shoulderHalf, backNeckD + shoulderDrop);
+    const backSNP = Geo.pt(backNeckW, backNeckD);
+    const shoulderLen = Geo.dist(backSNP, backShoulderTip);
+    const shoulderAngle = Math.atan2(
+      backShoulderTip.y - backSNP.y,
+      backShoulderTip.x - backSNP.x
+    );
+    const frontSNP = Geo.pt(frontNeckW, frontNeckD);
+    const frontShoulderTip = Geo.add(
+      frontSNP,
+      Geo.scale(Geo.pt(Math.cos(shoulderAngle), Math.sin(shoulderAngle)), shoulderLen)
+    );
+
+    const armDepth = cm(m.bust / 8 + 8.2);
+    const backWaistLen = cm(m.backWaistLength);
+    const frontLenAdjust = cm(1.5 + Math.max(0, m.bust - 84) / 8);
+    const frontWaistLen = backWaistLen + frontLenAdjust;
+    const hipDepth = cm(m.hipDepth);
+    const skirtPortion = cm(m.dressSkirtLength ?? 55);
+    const flare = style === 'aline' ? cm(9) : 0;
+
+    function buildHalf(isFront) {
+      const bq = isFront ? cm((m.bust + bustEase * 0.6) / 4 + 1.0) : cm((m.bust + bustEase * 0.4) / 4);
+      const wq = isFront ? cm((m.waist + (m.waistEase ?? 2) * 0.6) / 4 + 0.5) : cm((m.waist + (m.waistEase ?? 2) * 0.4) / 4);
+      const hq = isFront ? cm((m.hip + hipEase) / 4 + 0.5) : cm((m.hip + hipEase) / 4 - 0.5);
+      const waistLen = isFront ? frontWaistLen : backWaistLen;
+      const hipY = waistLen + hipDepth;
+      const hemY = waistLen + skirtPortion;
+      const underarm = Geo.pt(bq, armDepth);
+
+      const t = (waistLen - armDepth) / (hipY - armDepth);
+      const naturalWaistX = Geo.lerp(Geo.pt(bq, 0), Geo.pt(hq, 0), t).x - cm(1);
+      const dartWidth = Math.max(0, naturalWaistX - wq);
+      const waistAnchorX = wq + dartWidth;
+      const dartCenterX = isFront ? Math.max(bq * 0.35, bq - cm(8)) : bq * 0.45;
+      const upperLen = cm(12);
+      const lowerLen = cm(13);
+
+      const neckCurve = isFront
+        ? quadCurve(Geo.pt(0, 0), Geo.pt(frontNeckW * 0.85, frontNeckD * 0.15), frontSNP, 6)
+        : quadCurve(Geo.pt(0, 0), Geo.pt(backNeckW * 0.85, 0), backSNP, 6);
+      const shoulderTip = isFront ? frontShoulderTip : backShoulderTip;
+      const armholeCurve = cubicCurve(
+        shoulderTip,
+        Geo.pt(
+          shoulderTip.x + (bq - shoulderTip.x) * (isFront ? 0.25 : 0.2),
+          shoulderTip.y + (armDepth - shoulderTip.y) * (isFront ? 0.35 : 0.3)
+        ),
+        Geo.pt(bq + cm(0.8), armDepth - (armDepth - shoulderTip.y) * (isFront ? 0.3 : 0.32)),
+        underarm,
+        14
+      );
+
+      const waistCurve = quadCurve(underarm, Geo.pt(bq, waistLen), Geo.pt(waistAnchorX, waistLen), 6);
+      const hipPt = Geo.pt(hq, hipY);
+      const hipCurve = quadCurve(
+        Geo.pt(waistAnchorX, waistLen),
+        Geo.pt(Math.max(waistAnchorX, hq) + cm(0.5), waistLen + (hipY - waistLen) * 0.6),
+        hipPt,
+        8
+      );
+      const hemPt = Geo.pt(hq + flare, hemY);
+
+      const half = [
+        Geo.pt(0, 0),
+        ...neckCurve.slice(1),
+        shoulderTip,
+        ...armholeCurve.slice(1),
+        ...waistCurve.slice(1),
+        ...hipCurve.slice(1),
+        hemPt,
+        Geo.pt(0, hemY),
+      ];
+
+      const dart =
+        dartWidth > cm(0.3)
+          ? [
+              Geo.pt(dartCenterX, waistLen - upperLen),
+              Geo.pt(dartCenterX + dartWidth / 2, waistLen),
+              Geo.pt(dartCenterX, waistLen + lowerLen),
+              Geo.pt(dartCenterX - dartWidth / 2, waistLen),
+            ]
+          : null;
+
+      return {
+        outline: mirrorHalfToFull(half),
+        centerLine: [Geo.pt(0, 0), Geo.pt(0, hemY)],
+        grainline: [Geo.pt(0, armDepth * 0.4), Geo.pt(0, hemY - cm(3))],
+        notches: [underarm, Geo.pt(-underarm.x, underarm.y)],
+        internalDarts: dart ? [dart, dart.map((p) => Geo.pt(-p.x, p.y))] : [],
+        bustPoint: isFront ? Geo.pt(dartCenterX, armDepth + cm(1)) : undefined,
+        armholeLength: Geo.polylineLength([shoulderTip, ...armholeCurve.slice(1)]),
+      };
+    }
+
+    const styleLabel = style === 'aline' ? 'Aライン' : 'ストレート';
+    const back = { id: 'dressBack', label: `後ろワンピース(${styleLabel})`, ...buildHalf(false) };
+    const front = { id: 'dressFront', label: `前ワンピース(${styleLabel})`, ...buildHalf(true) };
+    return { back, front };
+  }
+
+  return { estimateDefaults, buildBodice, buildSleeve, buildSkirt, buildDress, cm };
 })();

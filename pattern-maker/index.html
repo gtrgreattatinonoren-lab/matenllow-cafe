@@ -67,6 +67,7 @@
           </label>
           <label>手首周り <input type="number" id="m-wrist" value="16" step="0.5" /></label>
           <label>スカート丈 <input type="number" id="m-skirtLength" value="58" step="0.5" /></label>
+          <label>ワンピース丈(ウエストから裾) <input type="number" id="m-dressSkirtLength" value="55" step="0.5" /></label>
         </div>
         <p class="hint">「自動」ボタンで身長・バストから目安値を再計算できます。実測値があれば直接入力してください。</p>
       </section>
@@ -101,12 +102,19 @@
         <button type="button" class="tab-btn active" data-garment="bodice">身頃原型</button>
         <button type="button" class="tab-btn" data-garment="sleeve">袖原型</button>
         <button type="button" class="tab-btn" data-garment="skirt">スカート原型</button>
+        <button type="button" class="tab-btn" data-garment="dress">ワンピース原型</button>
       </nav>
 
       <div class="skirt-style-row" id="skirt-style-row" hidden>
         <span>スカートの形:</span>
         <label><input type="radio" name="skirtStyle" value="straight" checked /> ストレート</label>
         <label><input type="radio" name="skirtStyle" value="aline" /> Aライン</label>
+      </div>
+
+      <div class="skirt-style-row" id="dress-style-row" hidden>
+        <span>ワンピースの形:</span>
+        <label><input type="radio" name="dressStyle" value="straight" checked /> ストレート</label>
+        <label><input type="radio" name="dressStyle" value="aline" /> Aライン</label>
       </div>
 
       <div class="toolbar">

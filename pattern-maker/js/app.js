@@ -6,6 +6,7 @@
 (() => {
   let activeGarment = 'bodice';
   let skirtStyle = 'straight';
+  let dressStyle = 'straight';
   let currentLayout = [];
   let currentOpts = {};
 
@@ -43,6 +44,7 @@
       upperArm: num('m-upperArm'),
       wrist: num('m-wrist'),
       skirtLength: num('m-skirtLength'),
+      dressSkirtLength: num('m-dressSkirtLength'),
       bustEase: num('e-bustEase'),
       waistEase: num('e-waistEase'),
       sleeveEase: num('e-sleeveEase'),
@@ -83,9 +85,12 @@
       const armholeLen = bodice.back.armholeLength + bodice.front.armholeLength;
       const { sleeve } = Drafts.buildSleeve(raw, armholeLen);
       pieces = [sleeve];
-    } else {
+    } else if (activeGarment === 'skirt') {
       const skirt = Drafts.buildSkirt(raw, skirtStyle);
       pieces = [skirt.back, skirt.front];
+    } else {
+      const dress = Drafts.buildDress(raw, dressStyle);
+      pieces = [dress.back, dress.front];
     }
 
     currentLayout = layoutPieces(pieces);
@@ -133,6 +138,7 @@
         btn.classList.add('active');
         activeGarment = btn.dataset.garment;
         document.getElementById('skirt-style-row').hidden = activeGarment !== 'skirt';
+        document.getElementById('dress-style-row').hidden = activeGarment !== 'dress';
         renderPreview();
       });
     });
@@ -140,6 +146,13 @@
     document.querySelectorAll('input[name="skirtStyle"]').forEach((radio) => {
       radio.addEventListener('change', (e) => {
         skirtStyle = e.target.value;
+        renderPreview();
+      });
+    });
+
+    document.querySelectorAll('input[name="dressStyle"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        dressStyle = e.target.value;
         renderPreview();
       });
     });

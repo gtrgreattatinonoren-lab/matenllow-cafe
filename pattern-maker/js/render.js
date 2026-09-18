@@ -137,6 +137,19 @@ const Render = (() => {
       });
     }
 
+    if (piece.internalDarts) {
+      piece.internalDarts.forEach((dartPts) => {
+        g.appendChild(
+          el('path', {
+            d: pathD(dartPts, true),
+            fill: 'rgba(179,65,58,0.06)',
+            stroke: '#2c2420',
+            'stroke-width': 0.6,
+          })
+        );
+      });
+    }
+
     if (piece.bustPoint) {
       const bp = piece.bustPoint;
       g.appendChild(el('line', { x1: bp.x - 3, y1: bp.y, x2: bp.x + 3, y2: bp.y, stroke: '#1f6f5c', 'stroke-width': 0.6 }));
@@ -195,6 +208,8 @@ const Render = (() => {
         grainline: piece.grainline && piece.grainline.map((p) => Geo.add(p, offset)),
         notches: piece.notches && piece.notches.map((p) => Geo.add(p, offset)),
         bustPoint: piece.bustPoint && Geo.add(piece.bustPoint, offset),
+        internalDarts:
+          piece.internalDarts && piece.internalDarts.map((pts) => pts.map((p) => Geo.add(p, offset))),
       };
       svg.appendChild(piecePaths(shifted, opts));
     });
