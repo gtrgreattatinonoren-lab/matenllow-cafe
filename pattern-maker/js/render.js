@@ -217,5 +217,5 @@ const Render = (() => {
     return { svg, viewBox: vb };
   }
 
-  return { buildSvg, piecePaths, el, SVG_NS };
+  return { buildSvg, piecePaths, drawGrid, el, SVG_NS };
 })();

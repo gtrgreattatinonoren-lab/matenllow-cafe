@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PDF型紙トレース | 型紙メーカー</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/trace.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>PDF型紙トレース <span>お手持ちのPDF型紙をブラウザ上でなぞってデジタル化</span></h1>
+    <p class="lead">
+      PDFファイルはサーバーへ送信せず、すべてこのブラウザの中だけで処理します。
+      表示したPDFの上を実際になぞって、印刷・SVG書き出しができる型紙データを作成できます。
+    </p>
+  </header>
+
+  <div class="disclaimer">
+    <strong>ご利用にあたって(必ずお読みください):</strong>
+    このツールで読み込むPDFは、<strong>ご自身が適法に入手したもの</strong>を、その配布元の利用規約(個人利用の範囲など)
+    に従ってお使いください。アップロードされたPDFはこの端末のブラウザ内だけで処理され、
+    どこにも送信・保存されません。また、書き出されるデータには元のPDF画像は含まれず、
+    あなたが手でなぞった線(トレースデータ)のみが含まれます。
+  </div>
+
+  <main class="trace-layout">
+    <aside class="sidebar trace-sidebar">
+      <section class="panel">
+        <h2>1. PDFを読み込む</h2>
+        <label class="file-label">
+          PDFファイルを選択
+          <input type="file" id="pdf-file" accept="application/pdf" hidden />
+        </label>
+        <p class="hint" id="pdf-status">まだ読み込まれていません。</p>
+        <div id="page-list" class="page-list"></div>
+        <label class="checkbox-line" style="margin-top:8px;">
+          背景の濃さ
+          <input type="range" id="opacity-range" min="0.15" max="1" step="0.05" value="0.85" style="flex:1;" />
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>2. 操作モード</h2>
+        <div class="mode-buttons">
+          <button type="button" class="mode-btn active" data-mode="place">ページ配置</button>
+          <button type="button" class="mode-btn" data-mode="trace">トレース</button>
+          <button type="button" class="mode-btn" data-mode="pan">画面移動</button>
+        </div>
+        <p class="hint">
+          「ページ配置」: PDFページをドラッグして位置合わせ(複数ページのパターンをつなげる時に使用)。<br />
+          「トレース」: クリックで型紙の輪郭に沿って点を打っていきます。始点の近くをクリックすると自動で閉じます。<br />
+          「画面移動」: ドラッグで表示位置を移動。マウスホイールで拡大縮小できます。
+        </p>
+        <div class="zoom-row">
+          <button type="button" id="zoom-out">縮小 -</button>
+          <button type="button" id="zoom-fit">全体表示</button>
+          <button type="button" id="zoom-in">拡大 +</button>
+        </div>
+      </section>
+
+      <section class="panel" id="trace-controls">
+        <h2>3. トレース操作</h2>
+        <div class="toolbar">
+          <button type="button" id="btn-undo-point">最後の点を取り消す</button>
+          <button type="button" id="btn-finish-path">このパーツを確定する</button>
+          <button type="button" id="btn-cancel-path">このパーツを破棄</button>
+        </div>
+        <p class="hint" id="current-path-status">現在なぞっている点: 0</p>
+        <button type="button" id="btn-calibrate" style="margin-top:6px;">📏 実寸を校正する</button>
+        <p class="hint">
+          PDFが100%スケールで作られていれば校正は不要です。印刷して定規で測ってズレがある場合のみ、
+          既知の長さの線を2点クリックして校正してください。
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>4. トレース済みパーツ</h2>
+        <div id="path-list" class="path-list">
+          <p class="hint">まだパーツがありません。</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>5. 書き出し</h2>
+        <label class="checkbox-line"><input type="checkbox" id="opt-showSA" /> 縫い代線を表示する</label>
+        <label>縫い代幅(cm) <input type="number" id="opt-saCm" value="1.0" step="0.1" min="0" /></label>
+        <div class="toolbar" style="margin-top:8px;">
+          <button type="button" id="btn-print">印刷する(実寸・A4分割)</button>
+          <button type="button" id="btn-export-svg">SVGをダウンロード</button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="main-area">
+      <div class="workspace-wrap">
+        <svg id="workspace-svg" class="workspace-svg"></svg>
+        <div class="workspace-hint" id="workspace-empty-hint">
+          左のパネルからPDFファイルを選択してください
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="print-area" class="print-area"></div>
+
+  <footer class="app-footer">
+    <a href="index.html">← 型紙メーカーに戻る</a>
+  </footer>
+
+  <script src="vendor/pdfjs/pdf.min.js"></script>
+  <script src="js/geometry.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/print.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/trace.js"></script>
+</body>
+</html>

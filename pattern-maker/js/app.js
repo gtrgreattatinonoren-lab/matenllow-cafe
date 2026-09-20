@@ -132,9 +132,9 @@
       });
     });
 
-    document.querySelectorAll('.tab-btn').forEach((btn) => {
+    document.querySelectorAll('.tab-btn[data-garment]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+        document.querySelectorAll('.tab-btn[data-garment]').forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
         activeGarment = btn.dataset.garment;
         document.getElementById('skirt-style-row').hidden = activeGarment !== 'skirt';

@@ -206,6 +206,15 @@ input[type="number"] {
   border-color: var(--wine);
 }
 
+.tab-link {
+  margin-left: auto;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
 .skirt-style-row {
   display: flex;
   align-items: center;
