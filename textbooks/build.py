@@ -35,8 +35,8 @@ body {
 .cover .note { font-size: 9.5pt; color: #666; line-height: 1.8; }
 .toc { page-break-after: always; }
 .toc h1 { margin-top: 0; }
-.toc ol { list-style: none; padding: 0; font-size: 12pt; }
-.toc li { padding: 2.2mm 0; border-bottom: 1px dotted #bbb; }
+.toc ol { list-style: none; padding: 0; font-size: 11pt; }
+.toc li { padding: 1.4mm 0; border-bottom: 1px dotted #bbb; }
 h1 {
   font-size: 18pt; color: var(--accent); border-bottom: 2.5px solid var(--accent);
   padding-bottom: 2mm; margin: 0 0 6mm; page-break-after: avoid;
@@ -74,7 +74,7 @@ COVER_NOTE = (
     "本書は日本安全食料料理協会（JSFCA）の資格試験の出題範囲として紹介されている項目をもとに"
     "作成した独自の学習テキストであり、協会の公式教材ではありません。"
     "試験の日程・受験料・出題形式などは変わることがあるため、受験前に必ず公式サイトで最新情報を確認してください。"
-    "<br>作成日：2026年10月1日"
+    "<br>第2版（増補・精査版）　作成日：2026年10月1日（情報は2026年10月時点で確認）"
 )
 
 
